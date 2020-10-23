@@ -13,7 +13,7 @@ module.exports = lista => {
             lista.expireat(chave, dataExpiracao);
         },
         async buscaValor(chave){
-            return getAsync(chave);
+            return await getAsync(chave);
         },
 
         async contemChave(chave) {
