@@ -77,8 +77,9 @@ module.exports = {
     try{
       const { refreshToken } = req.body;
       const id = await verificaRefreshToken(refreshToken);
-      await invalidRefreshToken(refreshToken);
+      await invalidaRefreshToken(refreshToken);
       req.user = await Usuario.buscaPorId(id);
+      return next();
     } catch(erro) {
       if (erro.name === 'InvalidArgumentError') {
         return res.status(401).json( { erro: erro.message } );

@@ -13,7 +13,7 @@ function criaTokenJWT(usuario) {
     id: usuario.id
   };
 
-  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '15m' });
+  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '30s' });
   return token;
 }
 
