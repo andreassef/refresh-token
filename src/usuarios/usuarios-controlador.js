@@ -27,7 +27,7 @@ module.exports = {
       const endereco = geraEndereco('/usuario/verifica_email/', token);
       const emailVerificacao = new EmailVerificacao(usuario, endereco);
       emailVerificacao.enviaEmail().catch(console.log);
-      res.status(201).json();
+      res.status(201).json(usuario);
     } catch (erro) {
       if (erro instanceof InvalidArgumentError) {
         return res.status(400).json({ erro: erro.message });
