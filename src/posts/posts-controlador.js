@@ -18,7 +18,12 @@ module.exports = {
 
   async lista(req, res) {
     try {
-      const posts = await Post.lista();
+      let posts = await Post.lista();
+
+      if (!req.isAuth) {
+        posts = posts.map(post => ({titulo: post.titulo}))
+      }
+
       res.json(posts);
     } catch (erro) {
       return res.status(500).json({ erro: erro.message });
