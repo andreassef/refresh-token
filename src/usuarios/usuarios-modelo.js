@@ -1,5 +1,5 @@
 const usuariosDao = require('./usuarios-dao');
-const { InvalidArgumentError } = require('../erros');
+const { InvalidArgumentError, NotFoundEntity } = require('../erros');
 const validacoes = require('../validacoes-comuns');
 const bcrypt = require('bcrypt');
 
@@ -54,7 +54,7 @@ class Usuario {
   static async buscaPorId(id) {
     const usuario = await usuariosDao.buscaPorId(id);
     if (!usuario) {
-      return null;
+      throw new NotFoundEntity('usuario');
     }
 
     return new Usuario(usuario);
@@ -63,7 +63,7 @@ class Usuario {
   static async buscaPorEmail(email) {
     const usuario = await usuariosDao.buscaPorEmail(email);
     if (!usuario) {
-      return null;
+      throw new NotFoundEntity('usuario');
     }
 
     return new Usuario(usuario);
