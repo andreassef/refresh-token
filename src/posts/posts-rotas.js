@@ -9,7 +9,7 @@ module.exports = app => {
     .route('/post')
     .get([tentarAutenticar, tentarAutorizar('post', 'ler')], postsControlador.lista)
     .post(
-      [middlewaresAutenticacao.bearer, autorizacao('post', 'criar')],
+      [middlewaresAutenticacao.bearer, middlewaresAutenticacao.local, autorizacao('post', 'criar')],
       postsControlador.adiciona
     );
 };
