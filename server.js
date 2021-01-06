@@ -6,7 +6,7 @@ require('./database');
 require('./redis/blocklist-access-token');
 require('./redis/allowlist-refresh-token');
 
-const { InvalidArgumentError } = require('./src/erros');
+const { InvalidArgumentError, NotFoundEntity, NotAuthorized } = require('./src/erros');
 const jwt = require('jsonwebtoken');
 
 const routes = require('./rotas');
@@ -30,6 +30,14 @@ app.use((erro, request, response, next) => {
     if (erro instanceof jwt.TokenExpiredError) {
         status = 401
         body.expiredAt = erro.expiredAt
+    }
+
+    if (erro instanceof NotFoundEntity) {
+        status = 404
+    }
+
+    if (erro instanceof NotAuthorized) {
+        status = 401
     }
 
     response.status(status)
