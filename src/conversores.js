@@ -1,11 +1,14 @@
 class ConversorPost {
-    constructor(tipoDeConteudo) {
+    constructor(tipoDeConteudo, camposExtras = []) {
         this.tipoDeConteudo = tipoDeConteudo
-        this.camposPublicos = ['titulo', 'conteudo']
+        this.camposPublicos = ['titulo', 'conteudo'].concat(camposExtras) //concatenaremos os campos publicos com os demais atributos que virao do construtor
     }
 
     converter (dados) {
-        dados = this.filtrar(dados)
+        // Por padrao, o accesscontrol coloca um * quando usamos o readAny, portanto só vamos precisar filtrar se nao houver o *
+        if (this.camposPublicos.indexOf('*') === -1) {
+            dados = this.filtrar(dados)
+        }
 
         if (this.tipoDeConteudo === 'json') {
             return this.json(dados)
