@@ -28,7 +28,7 @@ module.exports = (entidade, acao) =>
        return
     }
 
-    request.access = {
+    request.acesso = {
        todos:{
           permitido: permissaoTodos.granted,
           atributos: permissaoTodos.attributes
