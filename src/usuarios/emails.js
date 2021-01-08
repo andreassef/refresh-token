@@ -47,4 +47,15 @@ class EmailVerificacao extends Email {
     }
 }
 
-module.exports = { EmailVerificacao };
+class EmailRedefinicaoSenha extends Email {
+    constructor( usuario, token) {
+        super();
+        this.from = '"Blog do código" <noreply@blogdocodigo.com.br>';
+        this.to = usuario.email
+        this.subject = 'Redefinicao de senha';
+        this.text = `Olá, voce pediu para redefinir sua senha. Use o token a seguir para trocar a sua senha: ${token}`;
+        this.html = `<h1>Olá</h1>, voce pediu para redefinir sua senha. Use o token a seguir para trocar a sua senha: <a href="${token}"> ${token}</a>`;
+    }
+}
+
+module.exports = { EmailVerificacao, EmailRedefinicaoSenha };
