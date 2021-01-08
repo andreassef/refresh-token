@@ -1,9 +1,4 @@
-class ConversorPost {
-    constructor(tipoDeConteudo, camposExtras = []) {
-        this.tipoDeConteudo = tipoDeConteudo
-        this.camposPublicos = ['titulo', 'conteudo'].concat(camposExtras) //concatenaremos os campos publicos com os demais atributos que virao do construtor
-    }
-
+class Conversor {
     converter (dados) {
         // Por padrao, o accesscontrol coloca um * quando usamos o readAny, portanto só vamos precisar filtrar se nao houver o *
         if (this.camposPublicos.indexOf('*') === -1) {
@@ -40,4 +35,20 @@ class ConversorPost {
     }
 }
 
-module.exports = ConversorPost
+class ConversorPost extends Conversor {
+    constructor(tipoDeConteudo, camposExtras = []) {
+        super();
+        this.tipoDeConteudo = tipoDeConteudo
+        this.camposPublicos = ['titulo', 'conteudo'].concat(camposExtras) //concatenaremos os campos publicos com os demais atributos que virao do construtor
+    }
+}
+
+class ConversorUsuario extends Conversor {
+    constructor(tipoDeConteudo, camposExtras = []) {
+        super()
+        this.tipoDeConteudo = tipoDeConteudo
+        this.camposPublicos = ['nome'].concat(camposExtras) //concatenaremos os campos publicos com os demais atributos que virao do construtor
+    }
+}
+
+module.exports = { ConversorPost, ConversorUsuario}
